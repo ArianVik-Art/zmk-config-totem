@@ -46,6 +46,11 @@
             bindings = <&kp DELETE>;
             key-positions = <8 7>;
         };
+
+        combo_tab {
+            bindings = <&kp TAB>;
+            key-positions = <0 1>;
+        };
     };
 
     macros {
@@ -63,12 +68,30 @@
                 <&macro_tap>,
                 <&kp G &kp I &kp F>;
         };
+
+        func_call_brackets: func_call_end {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LEFT_PARENTHESIS &kp RIGHT_PARENTHESIS &kp SEMICOLON>;
+            label = "FUNC_CALL_END";
+        };
+
+        func_define_brackets: func_define_brackets {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings =
+                <&kp LEFT_PARENTHESIS &kp RIGHT_PARENTHESIS &kp SPACE &kp LEFT_BRACE &kp RIGHT_BRACE &kp LEFT &kp ENTER>,
+                <&macro_press>,
+                <&macro_press>;
+
+            label = "FUNC_DEFINE_BRACKETS";
+        };
     };
 
     behaviors {
-        dt: dt {
+        shift_caps: shift_caps {
             compatible = "zmk,behavior-tap-dance";
-            label = "DT";
+            label = "SHIFT_CAPS";
             #binding-cells = <0>;
             bindings = <&kp LEFT_SHIFT>, <&kp CAPSLOCK>;
         };
@@ -96,10 +119,10 @@
             //                                     ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛   ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛
 
             bindings = <
-     &kp Q  &kp W  &kp F  &kp P  &kp B        &kp J    &kp L  &kp U      &kp Y    &kp SEMI
-     &kp A  &kp R  &kp S  &kp T  &kp G        &kp M    &kp N  &kp E      &kp I    &kp O
-&dt  &kp Z  &kp X  &kp C  &kp D  &kp V        &kp K    &kp H  &kp COMMA  &kp DOT  &kp FSLH  &none
-                   &none  &none  &kp SPACE    &kp RET  &none  &kp BSPC
+             &kp Q  &kp W  &kp F         &kp P      &kp B        &kp J  &kp L          &kp U             &kp Y    &kp SEMI
+             &kp A  &kp R  &kp S         &kp T      &kp G        &kp M  &kp N          &kp E             &kp I    &kp O
+&shift_caps  &kp Z  &kp X  &kp C         &kp D      &kp V        &kp K  &kp H          &kp COMMA         &kp DOT  &kp FSLH  &mt RCTRL ENTER
+                           &kp LEFT_ALT  &kp SPACE  &kp LCTRL    &none  &kp BACKSPACE  &kp LEFT_COMMAND
             >;
         };
 
@@ -111,26 +134,35 @@
 
         symbol {
             bindings = <
-        &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans
-        &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-                        &trans  &trans  &trans    &trans  &trans  &trans
+     &kp PIPE         &none  &kp        &kp    &kp PLUS     &kp SLASH  &kp DOLLAR  &kp LEFT_BRACKET      &kp RIGHT_BRACKET      &kp SEMICOLON
+     &kp EXCLAMATION  &none  &kp SLASH  &none  &kp EQUAL    &kp ASTRK  &none       &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp APOS
+&kp  &kp UNDERSCORE   &none  &kp        &kp    &kp MINUS    &kp        &kp         &kp COMMA             &kp PERIOD             &kp            &kp
+                             &kp        &kp    &kp          &kp        &kp         &kp
             >;
         };
 
         number {
             bindings = <
-        &kp F9  &kp F10  &kp F11  &kp F12  &trans    &kp FSLH  &kp N7  &kp N8  &kp N9  &kp MINUS
-        &kp F5  &kp F6   &kp F7   &kp F8   &trans    &kp STAR  &kp N4  &kp N5  &kp N6  &kp PLUS
-&trans  &kp F1  &kp F2   &kp F3   &kp F4   &trans    &kp N0    &kp N1  &kp N2  &kp N3  &trans     &trans
-                         &trans   &trans   &trans    &trans    &trans  &trans
+        &kp F9  &kp F10  &kp F11  &kp F12  &kp KP_PLUS     &kp KP_DIVIDE    &kp KP_NUMBER_7  &kp KP_NUMBER_8  &kp KP_NUMBER_9  &trans
+        &kp F5  &kp F6   &kp F7   &kp F8   &kp KP_EQUAL    &kp KP_ASTERISK  &kp KP_NUMBER_4  &kp KP_NUMBER_5  &kp KP_NUMBER_6  &trans
+&trans  &kp F1  &kp F2   &kp F3   &kp F4   &kp KP_MINUS    &kp KP_N0        &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp KP_NUMBER_3  &trans  &trans
+                         &trans   &trans   &trans          &trans           &trans           &trans
             >;
         };
 
         gaming {
             bindings = <
-        &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans
-        &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans
+       &kp TAB    &kp Q  &trans  &kp E      &kp R    &trans  &trans  &trans  &trans  &trans
+       &kp LSHFT  &kp A  &kp W   &kp D      &kp F    &trans  &trans  &trans  &trans  &trans
+&mo 4  &kp LCTRL  &kp Z  &kp S   &kp C      &kp V    &trans  &trans  &trans  &trans  &trans  &trans
+                         &kp X   &kp SPACE  &kp B    &trans  &trans  &trans
+            >;
+        };
+
+        gaming-num {
+            bindings = <
+        &kp N1  &kp N2  &kp N3  &kp N4  &kp N5    &trans  &trans  &trans  &trans  &trans
+        &kp N6  &kp N7  &kp N8  &kp N9  &kp N0    &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
                         &trans  &trans  &trans    &trans  &trans  &trans
             >;

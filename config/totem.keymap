@@ -51,6 +51,18 @@
             bindings = <&kp TAB>;
             key-positions = <0 1>;
         };
+
+        combo_func_call_brackets {
+            bindings = <&func_call_brackets>;
+            key-positions = <17 18 9>;
+            layers = <1>;
+        };
+
+        combo_func_define_brackets {
+            bindings = <&func_define_brackets>;
+            key-positions = <17 18 20>;
+            layers = <1>;
+        };
     };
 
     macros {
@@ -79,11 +91,7 @@
         func_define_brackets: func_define_brackets {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings =
-                <&kp LEFT_PARENTHESIS &kp RIGHT_PARENTHESIS &kp SPACE &kp LEFT_BRACE &kp RIGHT_BRACE &kp LEFT &kp ENTER>,
-                <&macro_press>,
-                <&macro_press>;
-
+            bindings = <&kp LEFT_PARENTHESIS &kp RIGHT_PARENTHESIS &kp SPACE &kp LEFT_BRACE &kp RIGHT_BRACE &kp LEFT &kp ENTER>;
             label = "FUNC_DEFINE_BRACKETS";
         };
     };
@@ -134,10 +142,10 @@
 
         symbol {
             bindings = <
-     &kp PIPE         &none  &kp        &kp    &kp PLUS     &kp SLASH  &kp DOLLAR  &kp LEFT_BRACKET      &kp RIGHT_BRACKET      &kp SEMICOLON
-     &kp EXCLAMATION  &none  &kp SLASH  &none  &kp EQUAL    &kp ASTRK  &none       &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp APOS
-&kp  &kp UNDERSCORE   &none  &kp        &kp    &kp MINUS    &kp        &kp         &kp COMMA             &kp PERIOD             &kp            &kp
-                             &kp        &kp    &kp          &kp        &kp         &kp
+     &kp PIPE         &none  &kp    &kp    &kp PLUS     &kp SLASH    &kp DOLLAR  &kp LEFT_BRACKET      &kp RIGHT_BRACKET      &kp SEMICOLON
+     &kp EXCLAMATION  &none  &none  &none  &kp EQUAL    &kp ASTRK    &none       &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp APOS
+&kp  &kp UNDERSCORE   &none  &kp    &kp    &kp MINUS    &kp PERCENT  &kp         &kp COMMA             &kp PERIOD             &kp            &kp
+                             &kp    &kp    &kp          &kp          &kp         &kp
             >;
         };
 
